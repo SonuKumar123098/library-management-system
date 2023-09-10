@@ -17,6 +17,8 @@ public class Student {
     int regNo;
     @Enumerated(EnumType.STRING)
     Gender gender;
+//    @Column(name="name-info")
+    String name;
     String email;
     int age;
 }
