@@ -2,15 +2,15 @@ package com.example.librarymanagementsystem;
 
 import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 //@Table(name = "student-info")
 public class Student {
     @Id
