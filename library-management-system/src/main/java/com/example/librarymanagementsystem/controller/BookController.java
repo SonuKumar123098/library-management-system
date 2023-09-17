@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystem.controller;
 
+import com.example.librarymanagementsystem.Enum.Genre;
 import com.example.librarymanagementsystem.dto.responseDTO.BookResponse;
 import com.example.librarymanagementsystem.exception.AuthorNotFoundException;
 import com.example.librarymanagementsystem.modal.Book;
@@ -43,9 +44,15 @@ public class BookController {
     }
 
     // give me names of all the books of a particular genre and cost gretaer than x rs
-    @GetMapping("/get-by-genre-cost")
+    @GetMapping("/get-by-genre-cost")//sql->structured query language
     public ResponseEntity getBooksByGenreAndCostGreaterThan(@RequestParam("genre") String genre, @RequestParam("cost") double cost){
         List<BookResponse> bookResponses=bookService.getBooksByGenreAndCostGreaterThan(cost,genre);
+        return new ResponseEntity(bookResponses,HttpStatus.FOUND);
+    }
+    // hql -> hibernate query language
+    @GetMapping("/get-by-genre-cost-hql")
+    public ResponseEntity getBooksByGenreAndCostGreaterThanByHQL(@RequestParam("genre") Genre genre, @RequestParam("cost") double cost){
+        List<BookResponse> bookResponses=bookService.getBooksByGenreAndCostGreaterThanByHQL(cost,genre);
         return new ResponseEntity(bookResponses,HttpStatus.FOUND);
     }
     // give me all the books having number of pages between 'a' and 'b'

@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystem.service;
 
+import com.example.librarymanagementsystem.Enum.Genre;
 import com.example.librarymanagementsystem.dto.responseDTO.BookResponse;
 import com.example.librarymanagementsystem.exception.AuthorNotFoundException;
 import com.example.librarymanagementsystem.modal.Author;
@@ -47,7 +48,20 @@ public class BookService {
         return  bookResponses;
     }
 
-
+    public List<BookResponse> getBooksByGenreAndCostGreaterThanByHQL(double cost, Genre genre) {
+        List<Book> books=bookRepository.getBooksByGenreAndCostGreaterThanByHQL(genre,cost);
+        List<BookResponse> bookResponses=new ArrayList<>();
+        for(Book book:books){
+            BookResponse bookResponse=new BookResponse();
+            bookResponse.setGenre(book.getGenre());
+            bookResponse.setCost(book.getCost());
+            bookResponse.setTitle(book.getTitle());
+            bookResponse.setAuthorName(book.getAuthor().getName());
+            bookResponse.setNumberOfPages(book.getNumberOfPage());
+            bookResponses.add(bookResponse);
+        }
+        return  bookResponses;
+    }
     public String deleteBook(int id) {
         Optional<Book> bookOptional=bookRepository.findById(id);
         if(bookOptional.isPresent()){
@@ -70,4 +84,5 @@ public class BookService {
         }
         return bookResponses;
     }
+
 }
