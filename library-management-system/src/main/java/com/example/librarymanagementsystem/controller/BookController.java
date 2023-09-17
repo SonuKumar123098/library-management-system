@@ -32,27 +32,27 @@ public class BookController {
     // delete a book
     @DeleteMapping("/delete")
     public ResponseEntity deleteBook(@RequestParam("bId") int id){
-        String response=bookService.deleteBook(id);
+        String response= bookService.deleteBook(id);
         return new ResponseEntity<>(response,HttpStatus.FOUND);
     }
 
     // give me names of all the books of a particular genre
     @GetMapping("/get-by-genre")
     public ResponseEntity getAllBookByGenre(@RequestParam("genre") String genre){
-        List<BookResponse> bookResponses=bookService.getAllBookByGenre(genre);
+        List<BookResponse> bookResponses= bookService.getAllBookByGenre(genre);
         return new ResponseEntity<>(bookResponses,HttpStatus.FOUND);
     }
 
     // give me names of all the books of a particular genre and cost gretaer than x rs
     @GetMapping("/get-by-genre-cost")//sql->structured query language
     public ResponseEntity getBooksByGenreAndCostGreaterThan(@RequestParam("genre") String genre, @RequestParam("cost") double cost){
-        List<BookResponse> bookResponses=bookService.getBooksByGenreAndCostGreaterThan(cost,genre);
+        List<BookResponse> bookResponses= bookService.getBooksByGenreAndCostGreaterThan(cost,genre);
         return new ResponseEntity(bookResponses,HttpStatus.FOUND);
     }
     // hql -> hibernate query language
     @GetMapping("/get-by-genre-cost-hql")
     public ResponseEntity getBooksByGenreAndCostGreaterThanByHQL(@RequestParam("genre") Genre genre, @RequestParam("cost") double cost){
-        List<BookResponse> bookResponses=bookService.getBooksByGenreAndCostGreaterThanByHQL(cost,genre);
+        List<BookResponse> bookResponses= bookService.getBooksByGenreAndCostGreaterThanByHQL(cost,genre);
         return new ResponseEntity(bookResponses,HttpStatus.FOUND);
     }
     // give me all the books having number of pages between 'a' and 'b'

@@ -9,10 +9,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StudentResponse {
     String name;
     String email;
-    String message;
+    int age;
     String issuedLibraryCardNo;
 }

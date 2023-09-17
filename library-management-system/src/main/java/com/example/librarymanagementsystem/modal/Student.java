@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 //@Table(name = "student-info")
 public class Student {
 //    @Column(name="studentId")

@@ -1,6 +1,5 @@
 package com.example.librarymanagementsystem.controller;
 
-import com.example.librarymanagementsystem.Enum.Gender;
 import com.example.librarymanagementsystem.dto.requestDTO.StudentRequest;
 import com.example.librarymanagementsystem.dto.responseDTO.StudentResponse;
 import com.example.librarymanagementsystem.service.StudentService;
@@ -19,12 +18,12 @@ public class StudentController {
     StudentService studentService;
     @PostMapping("/add")
     public ResponseEntity addStudent(@RequestBody StudentRequest studentRequest){
-        StudentResponse response=studentService.addStudent(studentRequest);
+        StudentResponse response= studentService.addStudent(studentRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
     @GetMapping("/get")
     public ResponseEntity getStudent(@RequestParam("id") int regNo){
-        StudentResponse response=studentService.getStudent(regNo);
+        StudentResponse response= studentService.getStudent(regNo);
         if(response!=null) return new ResponseEntity(response,HttpStatus.FOUND);
         return new ResponseEntity("invalid id", HttpStatus.BAD_GATEWAY);
     }
@@ -36,22 +35,22 @@ public class StudentController {
     // update the age of a student  ---> regNo, age
     @PutMapping("/update-age/{age}")
     public ResponseEntity updateAge(@RequestParam("id") int regNo, @PathVariable("age") int age){
-        Student student=studentService.updateAge(regNo,age);
-        if(student!=null) return new ResponseEntity("Age updated successfully",HttpStatus.FOUND);
+        StudentResponse studentResponse= studentService.updateAge(regNo,age);
+        if(studentResponse!=null) return new ResponseEntity(studentResponse,HttpStatus.FOUND);
         return new ResponseEntity("invalid id",HttpStatus.NOT_FOUND);
     }
     // get all the students in the db
     @GetMapping("/all-student")
     public ResponseEntity getAllStudent(){
-        List<String> studentList=studentService.getAllStudent();
-        if(studentList.size()!=0)
-            return new ResponseEntity<>(studentList,HttpStatus.FOUND);
+        List<StudentResponse> studentResponses= studentService.getAllStudent();
+        if(studentResponses.size()!=0)
+            return new ResponseEntity<>(studentResponses,HttpStatus.FOUND);
         return new ResponseEntity<>("No student found in database",HttpStatus.NOT_FOUND);
     }
     // get list of all male students
     @GetMapping("/all-male-student")
     public ResponseEntity getAllMaleStudent(){
-        List<String> studentList=studentService.getAllMaleStudent();
+        List<StudentResponse> studentList= studentService.getAllMaleStudent();
         if(studentList.size()!=0)
             return new ResponseEntity<>(studentList,HttpStatus.FOUND);
         return

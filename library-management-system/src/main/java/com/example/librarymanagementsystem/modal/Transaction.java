@@ -14,6 +14,7 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
+@Builder
 public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
