@@ -5,6 +5,6 @@ import com.example.librarymanagementsystem.dto.responseDTO.IssueBookResponse;
 public interface TransactionService {
     IssueBookResponse issueBook(int bookId, int studentId);
 
-    IssueBookResponse returnBook(int bookId);
+    String returnBook(int bookId);
 //    returnBook()
 }

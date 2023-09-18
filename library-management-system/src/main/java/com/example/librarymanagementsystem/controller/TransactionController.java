@@ -29,7 +29,7 @@ public class TransactionController {
     }
     @PostMapping("/book-id/{bookId}")
     public ResponseEntity returnBook(@PathVariable("bookId") int bookId){
-        IssueBookResponse issueBookResponse=transactionService.returnBook(bookId);
-        return new ResponseEntity<>(issueBookResponse,HttpStatus.ACCEPTED);
+        String response=transactionService.returnBook(bookId);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 }

@@ -62,11 +62,13 @@ public class TransactionServiceImpl implements TransactionService{
         return TransactionTransformer.CreateIssueBookResponse(savedTransaction);
     }
 
-//    @Override
-//    public IssueBookResponse returnBook(int bookId) {
-//        Book book=bookRepository.getById(bookId);
-//        book.setIssued(false);
+    @Override
+    public String returnBook(int bookId) {
+        Book book=bookRepository.getById(bookId);
+        book.setIssued(false);
+        Book savedBook=bookRepository.save(book);
+        return "book returned successfully";
 //        Transaction transaction=book.getTransactionList().get(book.getTransactionList().size()-1);
 //        LibraryCard libraryCard=transaction.getLibraryCard();
-//    }
+    }
 }
