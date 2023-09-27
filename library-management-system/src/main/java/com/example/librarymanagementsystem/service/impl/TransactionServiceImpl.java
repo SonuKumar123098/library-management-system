@@ -14,6 +14,8 @@ import com.example.librarymanagementsystem.repository.TransactionRepository;
 import com.example.librarymanagementsystem.service.TransactionService;
 import com.example.librarymanagementsystem.transformer.TransactionTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,6 +29,8 @@ public class TransactionServiceImpl implements TransactionService{
     BookRepository bookRepository;
     @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
+    JavaMailSender javaMailSender;
     @Override
     public IssueBookResponse issueBook(int bookId, int studentId) {
         Optional<Book> bookOptional=bookRepository.findById(bookId);
@@ -57,8 +61,18 @@ public class TransactionServiceImpl implements TransactionService{
         Book savedBook=bookRepository.save(book);
         Student savedStudent=studentRepository.save(student);
 
-        // create a issueBookResponse
+        //send a mail
+        SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
+        String text= "Hi "+savedStudent.getName()+" the below book has been issued to you \n"+
+                book.getTitle()+" \nThis is the transaction number: "+transaction.getTransactionNumber();
+        simpleMailMessage.setFrom("acciojob0@gmail.com");
+        simpleMailMessage.setTo(savedStudent.getEmail());
+        simpleMailMessage.setCc("sonukrsingh998@gmail.com");
+        simpleMailMessage.setSubject("Congrats! book issued");
+        simpleMailMessage.setText(text);
+        javaMailSender.send(simpleMailMessage);
 
+        // create a issueBookResponse
         return TransactionTransformer.CreateIssueBookResponse(savedTransaction);
     }
 
